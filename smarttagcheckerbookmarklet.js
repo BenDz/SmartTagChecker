@@ -2,11 +2,17 @@
 
 	try {
 		var a = new ATInternet.Tracker.Tag();
-		var m = 'SmartTag version <b>'+a.version+'</b><br />Plugins: <b>'+a.getConfig('plgs')+'</b><br />Site: <b>'+a.getConfig('site')+'</b><br />Log: <b>'+a.getConfig('log')+'</b>';
+		var m = 'SmartTag version <b>'+a.version+'</b>';
+			m += '<br />Plugins:';
+			a.getConfig('plgs').forEach(function(entry) {
+				m += '<br />- <b>'+entry+'</b>';
+			});
+			m += '<br />Site: <b>'+a.getConfig('site')+'</b>';
+			m += '<br />Log: <b>'+a.getConfig('log')+'</b>';
 	} catch(e) {
 		var m = (e.message.indexOf('ATInternet is not defined') > -1) ? 'SmartTag not included' : 'Unknown error';
 	} finally {
-		$('body').append('<div style="z-index:10000;position:fixed;background-color:red;right:10px;top:10px;padding:15px;color:white;"><span id="close" style="position:absolute;right:5px;top:2px;cursor:pointer;" onclick="this.parentNode.parentNode.removeChild(this.parentNode); return false;">x</span> '+m+'</div>');
+		$('body').append('<div onclick="this.parentNode.removeChild(this); return false;" style="cursor:pointer;z-index:10000;position:fixed;background-color: #045e89;right:10px;top:10px;padding:15px;color:white;font-size:12px;text-align:left;font-family:Arial;font-weight:normal;box-shadow:0px 0px 5px #0cacf8;border:1px solid #6fcefb;border-radius:3px;">'+m+'</div>');
 	}
 
 });
